@@ -7,19 +7,19 @@ $font-family-sans-serif: 'Lato', Tahoma, sans-serif !default;
 
 // headings
 $presentation-heading-font: 'Yanone Kaffeesatz',  Tahoma, sans-serif  !default;
-$presentation-heading-color: #562457 !default;
+$presentation-heading-color: #FFA500 !default;
 $h1-font-size: 1.6em !default;
 $h2-font-size: 1.3em !default;
 $h3-font-size: 1.15em !default;
 
 //code
-$code-color: #88398A !default;
+$code-color: #36454F !default;
 $font-family-monospace: 'Inconsolata', monospace  !default;
 
 // general  
-$body-bg: #fff;
+$body-bg: #FFFFF0;
 $body-color: #000000;
-$link-color: #88398a;
+$link-color: #98FF98;
 $presentation-font-size-root: 35px;
 
 /*-- scss:rules --*/
@@ -56,7 +56,7 @@ $presentation-font-size-root: 35px;
 }
 
 .reveal .footer {
-    color: #9d709e;
+    color: #87CEFA;
 }
 
 
@@ -65,7 +65,7 @@ $presentation-font-size-root: 35px;
 }
 
 section.has-dark-background a, section.has-dark-background a:hover {
-    color: #fee4ff;
+    color: #32CD32;
 }
 
 
