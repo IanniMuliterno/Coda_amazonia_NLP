@@ -67,6 +67,7 @@ library(rjson)
 library(wordcloud2)
 library(magick)
 library(tm)
+library(SnowballC)
 tib <- tibble(str = c("a","b","c","d"), int = c(1,2,3,4))
 # tente rodar o código abaixo
 #tib$newcol <- c(5,6)
@@ -386,6 +387,78 @@ phone_numbers = c(
 
 str_match(phone_numbers, pattern)
 ```
+## Faxinando a base de texto
+
+Agora vamos entrar em cuidados que muitas vezes são necessários para que uma base de texto seja inputada em modelos mais complexos.
+* Stop words
+* Stemming/Lemmatization
+
+## Stop words
+
+- Snowball, muitas línguas disponíveis, inclusive PT
+
+```{r}
+library(stopwords)
+
+#length(stopwords(language = 'pt', source = 'snowball'))
+sample(stopwords::stopwords(language = 'pt', source = 'snowball'),size = 10)
+```
+```{r}
+stopwords_getsources()
+```
+
+## exercício: comparar stopwords
+
+Utilize a `len`, para comparar a complexidade, ou comprimento, das stopwords e `setdiff` para comparar a composição.
+
+## Solução: comparar stopwords
+
+```{r}
+
+setdiff(stopwords::stopwords(language = 'pt', source = "snowball"),
+        stopwords::stopwords(language = 'pt', source = "nltk"))
+
+```
+
+
+## exemplo de aplicação
+
+```{r}
+stopwords_pt <- stopwords::stopwords(language = 'pt', source = 'snowball')
+sample_text <- c("O coda Amazônia está incrível!",
+                 "Análise de sentimentos é uma parte importante da NLP.",
+                 "Vamos remover as stopwords deste texto em português.")
+
+# Create a Corpus
+corpus <- Corpus(VectorSource(sample_text))
+inspect(corpus)
+```
+## exemplo de aplicação
+```{r}
+remove_pt_stopwords <- function(text, stopwords) {
+  tokens <- unlist(strsplit(text, " "))
+  tokens <- tokens[!tokens %in% stopwords]
+  paste(tokens, collapse = " ")
+}
+
+# Apply function to the corpus
+corpus_clean <- tm_map(corpus, content_transformer(remove_pt_stopwords), stopwords_pt)
+inspect(corpus_clean)
+```
+
+## Stemming and lemmatization
+
+explicação em texto
+
+  ### Lemmatization vs Stemming
+
+ comparação baseada no material do livro
+## 
+```{r}
+
+```
+
+
 ## Lendo a base de dados
 
 ```{r}
