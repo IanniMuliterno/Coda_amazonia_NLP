@@ -390,12 +390,14 @@ str_match(phone_numbers, pattern)
 ## Faxinando a base de texto
 
 Agora vamos entrar em cuidados que muitas vezes são necessários para que uma base de texto seja inputada em modelos mais complexos.
-* Stop words
-* Stemming/Lemmatization
+
+- Stop words
+- Stemming/Lemmatization
 
 ## Stop words
 
 - Snowball, muitas línguas disponíveis, inclusive PT
+- função `stopwords_getsources` retorna as fontes disponíveis.
 
 ```{r}
 library(stopwords)
@@ -414,9 +416,24 @@ Utilize a `len`, para comparar a complexidade, ou comprimento, das stopwords e `
 ## Solução: comparar stopwords
 
 ```{r}
+for(i in stopwords_getsources()){
+  
+  if('pt' %in% stopwords_getlanguages(source = i)){
+  print(
+    paste(i,', len:',
+      stopwords::stopwords(language = 'pt', source = i) |> length()
+  ))
+    }
+}
+```
 
-setdiff(stopwords::stopwords(language = 'pt', source = "snowball"),
-        stopwords::stopwords(language = 'pt', source = "nltk"))
+
+---
+
+```{r}
+
+setdiff(stopwords::stopwords(language = 'pt', source = "stopwords-iso"),
+        stopwords::stopwords(language = 'pt', source = "nltk")) |> head()
 
 ```
 
@@ -448,11 +465,12 @@ inspect(corpus_clean)
 
 ## Stemming and lemmatization
 
-explicação em texto
+As vezes apenas a "raiz" da palavra importa, por exemplo, se você estiver tentando montar um modelo de busca, como o google. Isso também traz uma vantagem de processamento por diminuir o número de palavras distintas na base de treino.
+
+---
 
   ### Lemmatization vs Stemming
 
- comparação baseada no material do livro
 ## 
 ```{r}
 
