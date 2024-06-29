@@ -16,7 +16,7 @@ embed-resources: true
 
 - Ían Muliterno
 - Graduado em Estatística na Universidade Federal de Pernambuco
-- Cientista de dados Sr no Greenpeace Brasil.
+- Cientista de dados Sr na Capgemini.
 - Escritor
 - Co-organizador da R-Ladies São Paulo, uma comunidade que tem como objetivo promover a diversidade de gênero no mercado de tecnologia/dados.
 
@@ -106,9 +106,6 @@ A base de hoje se chama [`Harry Potter Dialogue (HPD)`](https://nuochenpku.githu
 
 <img src="img/hpd.png" style="display: block; margin-left: auto; margin-right: auto;"/>
 
-## Um desabafo
- 
- <img src="img/vila_antes.jpg" style="display: block; margin-left: auto; margin-right: auto;"/>
  
 ## Regex
 
@@ -165,8 +162,6 @@ acentos <- c(
 str_view(acentos,'n.o')
 ```
 
----
-
 Aqui acontecem duas coisas interessantes. O `.` no regex não da match com o `.` na frase e `nco` ou `nto` não nos interessa... Como podemos resolver se quisermos dar match no `.` ou garantir que match apenas com `nao` ou `não`? 
 
 ## Wildcard
@@ -175,7 +170,7 @@ segura o primeiro problema, vamos focar em resolver o `nao`+`não`:
 ```{r}
 str_match(acentos,'n[aã]o')
 ```
----
+
 Mas perae, tem alguma coisa errada. a primeira frase tem mais de um `nao`. Esse é um ponto de cuidado que nos leva ao:
 
 ## Primeiro hack do stringr
@@ -247,6 +242,10 @@ str_match_all(favorites2, "\\w+")
 
 Vamos para o primeiro exercício! Como ficaria o regex?
 
+## Hora de testar
+
+
+<img src="img/lirio2.webp" style="display: block; margin-left: auto; margin-right: auto;"/>
 
 ## Exercício 1 - Resposta
 ```{r}
@@ -280,6 +279,11 @@ str_match_all(favorites2, "\\s+")
 ## Exercício 2
 
 O que acontece se trocarmos `s` por `S`?
+
+## Hora de testar
+
+
+<img src="img/lirio1.png" style="display: block; margin-left: auto; margin-right: auto;"/>
 
 ## Exercício 2 - resposta
 ```{r}
@@ -413,6 +417,11 @@ stopwords_getsources()
 
 Utilize a `len`, para comparar a complexidade, ou comprimento, das stopwords e `setdiff` para comparar a composição.
 
+## Hora de testar
+
+
+<img src="img/unificacao.webp" style="display: block; margin-left: auto; margin-right: auto;"/>
+
 ## Solução: comparar stopwords
 
 ```{r}
@@ -428,7 +437,7 @@ for(i in stopwords_getsources()){
 ```
 
 
----
+
 
 ```{r}
 
@@ -467,15 +476,68 @@ inspect(corpus_clean)
 
 As vezes apenas a "raiz" da palavra importa, por exemplo, se você estiver tentando montar um modelo de busca, como o google. Isso também traz uma vantagem de processamento por diminuir o número de palavras distintas na base de treino.
 
----
 
-  ### Lemmatization vs Stemming
+## Lemmatization
 
-## 
 ```{r}
+
+exemplo<-"sê eu comesse açai com peixe, eu estaria comendo açai, mas comeria achando que é outra coisa, pois o açai que to acostumado não é comestível com peixe."
+
+exemplo
+
+chartr("áéíóúâêô", "aeiouaeo", exemplo)
 
 ```
 
+
+## Lemmatization
+```{r}
+
+exemplo_corpus <- VCorpus(VectorSource(exemplo))
+
+exemplo_corpus <- tm_map(exemplo_corpus, content_transformer(tolower))
+exemplo_corpus <- tm_map(exemplo_corpus, removePunctuation)
+exemplo_corpus <- tm_map(exemplo_corpus, removeNumbers)
+exemplo_corpus <- tm_map(exemplo_corpus, removeWords, stopwords("portuguese"))
+exemplo_corpus <- tm_map(exemplo_corpus, stripWhitespace)
+exemplo_corpus <- TermDocumentMatrix(exemplo_corpus)
+
+exemplo_corpus_matrix <- as.matrix(exemplo_corpus)
+palavras<-row.names(exemplo_corpus_matrix)
+
+
+lemma_dic <- read.delim(file = "https://raw.githubusercontent.com/michmech/lemmatization-lists/master/lemmatization-pt.txt", header = FALSE, stringsAsFactors = FALSE)
+names(lemma_dic) <- c("stem", "term")
+
+
+
+```
+## Lemmatization
+
+```{r}
+
+palavras 
+
+for (j in 1:length(palavras)){
+  comparacao <- palavras[j] == lemma_dic$term
+  if (sum(comparacao) == 1){
+    palavras[j] <- as.character(lemma_dic$stem[comparacao])
+  } else {
+    palavras[j] <- palavras[j]
+  }
+}
+
+palavras
+```
+
+## Stemming vs Lemmatization
+
+<img src="img/stemming and lemmatization.png" style="display: block; margin-left: auto; margin-right: auto;"/>
+
+:::footer
+Créditos da imagem [www.nomidl.com](https://www.nomidl.com/natural-language-processing/stem-vs-lemma-diff/).
+:::
+## Agora vamos ao livro
 
 ## Lendo a base de dados
 
@@ -661,6 +723,7 @@ Sentiment |>
   theme_minimal()+
   theme(legend.title.align = 0.5, legend.position = "right", legend.direction = "vertical")
 ```
+
 
 ## Wrap up
 

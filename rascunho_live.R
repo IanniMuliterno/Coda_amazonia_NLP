@@ -1,3 +1,4 @@
+library(stringr)
 letras <- c('abc','abcde','xyz')
 
 str_view(letras,'a')
@@ -49,6 +50,10 @@ if(
   stop('por favor insira seu nome')
 }
 
+nome_usuario <- ""
+if (length(str_detect(nome_usuario, "\\W+")) == 0) {
+  stop("Nome, por favor. >=( ")
+}
 
 fruit <- c('apple','blueberry','apricot','banana')
 str_match(fruit,'.+')
