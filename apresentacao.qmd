@@ -238,11 +238,11 @@ str_match_all(favorites2, "\\D+")
 str_match_all(favorites2, "\\w+")
 ```
 
-### se quiséssemos match só em "non-words"?
+### Exercício 1 - se quiséssemos match só em "non-words"?
 
 Vamos para o primeiro exercício! Como ficaria o regex?
 
-## Hora de testar
+## Hora de testar - tentem resolver o exercicio
 
 
 <img src="img/lirio2.webp" style="display: block; margin-left: auto; margin-right: auto;"/>
@@ -505,8 +505,12 @@ exemplo_corpus <- TermDocumentMatrix(exemplo_corpus)
 exemplo_corpus_matrix <- as.matrix(exemplo_corpus)
 palavras<-row.names(exemplo_corpus_matrix)
 
+# fonte
+#lemma_dic <- read.delim(file = "https://raw.githubusercontent.com/michmech/lemmatization-lists/master/lemmatization-pt.txt", header = FALSE, stringsAsFactors = FALSE)
 
-lemma_dic <- read.delim(file = "https://raw.githubusercontent.com/michmech/lemmatization-lists/master/lemmatization-pt.txt", header = FALSE, stringsAsFactors = FALSE)
+ 
+lemma_dic <- readRDS("lemma.RDS")
+
 names(lemma_dic) <- c("stem", "term")
 
 
@@ -728,14 +732,18 @@ Sentiment |>
 ## Wrap up
 
 Hoje aprendemos a base da análise de texto, 
-- entendemos `regex`, seus elementos e quantificadores mais importantes
-- conhecemos a biblioteca stringr
-- Fizemos análise exploratória dos diálogos da série Harry Potter
-- introduzimos análise de sentimentos
+
+- entendemos `regex`, seus elementos e quantificadores mais importantes 
+
+- conhecemos a biblioteca stringr 
+
+- Fizemos análise exploratória dos diálogos da série Harry Potter 
+
+- introduzimos análise de sentimentos 
 
 ## Agradecimentos
 - Todos envolvidos no evento
 - [R-ladies SP](https://rladies-sp.org/) 
-- [R-ladies Gyn](https://www.rladiesgyn.com/)
-- [Fernanda](https://www.fernandakellyrs.com/)
+- [OKBR](https://ok.org.br/)
+- [UNAMA](https://www.unama.br/)
 
