@@ -1,10 +1,7 @@
 https://smltar.com/stemming
-(snowball funfa em pt para word lemmatization)
-https://smltar.com/stemming#lemmatization (spacyr)
-https://github.com/MatheusFerraroni/adrenaline_dataset (pt br dataset in r)
-https://www.kaggle.com/datasets/luisfredgs/imdb-ptbr/code
+(snowball funciona em pt para word lemmatization)
+https://smltar.com/stemming#lemmatization (spacyr n aplicado na aula, porem recomendo o estudo)
 
-percentual de palavras com sentimento negativo por capitulo?
-outras ideias de analise de livros.
 
 https://rpubs.com/StevenDuttRoss/lemmatizacao-no-R
+(mais uma referencia de lemma em R)

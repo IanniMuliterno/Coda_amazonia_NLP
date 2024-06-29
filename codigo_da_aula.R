@@ -75,6 +75,3 @@ mentions_df <- data.frame(personagem = unique(tb_final$personagem),
 
 mentions_df |> 
   arrange(desc(mentions))
-
-
-ianmuliterno@gmail.com
